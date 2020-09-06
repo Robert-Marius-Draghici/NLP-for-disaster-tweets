@@ -1,0 +1,121 @@
+MODEL_NAME = 'distilbert-base-cased'
+t = text.Transformer(MODEL_NAME, maxlen=50, class_names=list(Y_train.unique()))
+trn = t.preprocess_train(X_train.tolist(), Y_train.values)
+val = t.preprocess_test(X_val.tolist(), Y_val.values)
+model = t.get_classifier()
+learner = ktrain.get_learner(model, train_data=trn, val_data=val, batch_size=6)
+
+simulating training for different learning rates... this may take a few moments...
+Train for 1015 steps
+Epoch 1/5
+1015/1015 [==============================] - 48s 48ms/step - loss: 0.6270 - accuracy: 0.6317
+Epoch 2/5
+1015/1015 [==============================] - 43s 42ms/step - loss: 0.4562 - accuracy: 0.8048
+Epoch 3/5
+1015/1015 [==============================] - 43s 42ms/step - loss: 0.6675 - accuracy: 0.6003
+Epoch 4/5
+ 722/1015 [====================>.........] - ETA: 12s - loss: 0.7589 - accuracy: 0.5612
+
+done.
+Visually inspect loss plot and select learning rate associated with falling loss
+
+
+
+begin training using onecycle policy with max lr of 1e-06...
+Train for 1015 steps, validate for 48 steps
+Epoch 1/10
+1015/1015 [==============================] - 47s 47ms/step - loss: 0.6826 - accuracy: 0.5709 - val_loss: 0.6777 - val_accuracy: 0.5653
+Epoch 2/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.6692 - accuracy: 0.5780 - val_loss: 0.6501 - val_accuracy: 0.5791
+Epoch 3/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.5575 - accuracy: 0.7530 - val_loss: 0.4486 - val_accuracy: 0.8089
+Epoch 4/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.4273 - accuracy: 0.8126 - val_loss: 0.4105 - val_accuracy: 0.8227
+Epoch 5/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.3921 - accuracy: 0.8368 - val_loss: 0.3983 - val_accuracy: 0.8326
+Epoch 6/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.3695 - accuracy: 0.8484 - val_loss: 0.3966 - val_accuracy: 0.8359
+Epoch 7/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.3476 - accuracy: 0.8614 - val_loss: 0.3989 - val_accuracy: 0.8372
+Epoch 8/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.3353 - accuracy: 0.8672 - val_loss: 0.3985 - val_accuracy: 0.8345
+Epoch 9/10
+1015/1015 [==============================] - 44s 44ms/step - loss: 0.3284 - accuracy: 0.8711 - val_loss: 0.4038 - val_accuracy: 0.8293
+Epoch 10/10
+1015/1015 [==============================] - 45s 44ms/step - loss: 0.3200 - accuracy: 0.8754 - val_loss: 0.4023 - val_accuracy: 0.8339
+
+<tensorflow.python.keras.callbacks.History at 0x7fe10e7cb0f0>
+
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.89      0.86       861
+           1       0.85      0.76      0.80       662
+
+    accuracy                           0.83      1523
+   macro avg       0.84      0.82      0.83      1523
+weighted avg       0.83      0.83      0.83      1523
+
+array([[770,  91],
+       [162, 500]])
+       
+----------
+id:244 | loss:4.14 | true:0 | pred:1)
+
+----------
+id:1182 | loss:4.12 | true:0 | pred:1)
+
+----------
+id:1439 | loss:4.02 | true:0 | pred:1)
+
+----------
+id:569 | loss:3.67 | true:0 | pred:1)
+
+----------
+id:1368 | loss:3.46 | true:0 | pred:1)
+
+----------
+id:254 | loss:3.37 | true:0 | pred:1)
+
+----------
+id:43 | loss:3.37 | true:0 | pred:1)
+
+----------
+id:1099 | loss:3.26 | true:0 | pred:1)
+
+----------
+id:830 | loss:3.23 | true:0 | pred:1)
+
+----------
+id:1079 | loss:3.14 | true:0 | pred:1)
+
+----------
+id:455 | loss:3.06 | true:0 | pred:1)
+
+----------
+id:212 | loss:3.02 | true:0 | pred:1)
+
+----------
+id:152 | loss:3.0 | true:1 | pred:0)
+
+----------
+id:530 | loss:2.97 | true:0 | pred:1)
+
+----------
+id:110 | loss:2.96 | true:1 | pred:0)
+
+----------
+id:756 | loss:2.95 | true:1 | pred:0)
+
+----------
+id:883 | loss:2.95 | true:1 | pred:0)
+
+----------
+id:644 | loss:2.9 | true:1 | pred:0)
+
+----------
+id:1204 | loss:2.87 | true:1 | pred:0)
+
+----------
+id:769 | loss:2.83 | true:1 | pred:0)
+

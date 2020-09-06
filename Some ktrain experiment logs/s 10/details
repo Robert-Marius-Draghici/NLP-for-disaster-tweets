@@ -1,0 +1,24 @@
+args={'fp16': False,
+      'num_train_epochs': 4,
+      'overwrite_output_dir': True}
+
+# Create a TransformerModel
+model = ClassificationModel('albert', 'albert-base-v2', args=args)
+
+# Train the model
+model.train_model(train_df, 
+                            acc = accuracy_score, 
+                            precision = precision_score,
+                            recall = recall_score,
+                            f1 = f1_score)
+
+# Evaluate the model
+result, model_outputs, wrong_predictions = model.eval_model(val_df, 
+                            acc = accuracy_score, 
+                            precision = precision_score,
+                            recall = recall_score,
+                            f1 = f1_score)
+                            
+                            all cleaning
+{'mcc': 0.5942224128589162, 'tp': 482, 'tn': 739, 'fp': 122, 'fn': 180, 'acc': 0.8017071569271176, 'precision': 0.7980132450331126, 'recall': 0.7280966767371602, 'f1': 0.7614533965244866, 'eval_loss': 0.5466294911012287}
+                    

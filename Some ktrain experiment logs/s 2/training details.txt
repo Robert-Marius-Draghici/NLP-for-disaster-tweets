@@ -1,0 +1,179 @@
+(x_train, y_train), (x_val, y_val), preproc = text.texts_from_df(train, 
+                                                                   'text', # name of column containing review text
+                                                                   label_columns=['target'],
+                                                                   maxlen=40, 
+                                                                   max_features=100000,
+                                                                   preprocess_mode='bert',
+                                                                   val_pct=0.2,
+                                                                   ngram_range=3)
+
+model = text.text_classifier('bert', (x_train, y_train) , preproc=preproc)
+learner = ktrain.get_learner(model, 
+                             train_data=(x_train, y_train), 
+                             val_data=(x_val, y_val), 
+                             batch_size=64)
+                             
+                             simulating training for different learning rates... this may take a few moments...
+Train on 6090 samples
+Epoch 1/1024
+6090/6090 [==============================] - 64s 11ms/sample - loss: 0.8642 - accuracy: 0.5227
+Epoch 2/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.6875 - accuracy: 0.6138
+Epoch 3/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.5903 - accuracy: 0.6977
+Epoch 4/1024
+6090/6090 [==============================] - 51s 8ms/sample - loss: 0.4978 - accuracy: 0.7718
+Epoch 5/1024
+6090/6090 [==============================] - 51s 8ms/sample - loss: 0.4235 - accuracy: 0.8184
+Epoch 6/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.3751 - accuracy: 0.8435
+Epoch 7/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.3249 - accuracy: 0.8688
+Epoch 8/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.2848 - accuracy: 0.8857
+Epoch 9/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.3180 - accuracy: 0.8752
+Epoch 10/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.5607 - accuracy: 0.7171
+Epoch 11/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.7654 - accuracy: 0.5135
+Epoch 12/1024
+6090/6090 [==============================] - 50s 8ms/sample - loss: 0.8696 - accuracy: 0.5271
+Epoch 13/1024
+ 448/6090 [=>............................] - ETA: 46s - loss: 2.2613 - accuracy: 0.5156
+ 
+ 
+
+
+
+
+begin training using onecycle policy with max lr of 5e-05...
+Train on 6090 samples, validate on 1523 samples
+Epoch 1/15
+6090/6090 [==============================] - 56s 9ms/sample - loss: 0.5658 - accuracy: 0.7205 - val_loss: 0.4120 - val_accuracy: 0.8221
+Epoch 2/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.3928 - accuracy: 0.8317 - val_loss: 0.3790 - val_accuracy: 0.8457
+Epoch 3/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.3369 - accuracy: 0.8608 - val_loss: 0.4045 - val_accuracy: 0.8378
+Epoch 4/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.2619 - accuracy: 0.9005 - val_loss: 0.4437 - val_accuracy: 0.8293
+Epoch 5/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.1826 - accuracy: 0.9346 - val_loss: 0.5492 - val_accuracy: 0.8037
+Epoch 6/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.1482 - accuracy: 0.9466 - val_loss: 0.5753 - val_accuracy: 0.8030
+Epoch 7/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.1091 - accuracy: 0.9594 - val_loss: 0.6275 - val_accuracy: 0.8142
+Epoch 8/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.1040 - accuracy: 0.9619 - val_loss: 0.6331 - val_accuracy: 0.7965
+Epoch 9/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0848 - accuracy: 0.9675 - val_loss: 0.6558 - val_accuracy: 0.8339
+Epoch 10/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0611 - accuracy: 0.9750 - val_loss: 0.7247 - val_accuracy: 0.8188
+Epoch 11/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0488 - accuracy: 0.9764 - val_loss: 0.7757 - val_accuracy: 0.8175
+Epoch 12/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0405 - accuracy: 0.9808 - val_loss: 0.8432 - val_accuracy: 0.8253
+Epoch 13/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0349 - accuracy: 0.9814 - val_loss: 0.9422 - val_accuracy: 0.8175
+Epoch 14/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0348 - accuracy: 0.9819 - val_loss: 0.9052 - val_accuracy: 0.8194
+Epoch 15/15
+6090/6090 [==============================] - 53s 9ms/sample - loss: 0.0298 - accuracy: 0.9847 - val_loss: 0.9282 - val_accuracy: 0.8168
+
+<tensorflow.python.keras.callbacks.History at 0x7fe327561470>
+
+              precision    recall  f1-score   support
+
+           0       0.84      0.84      0.84       877
+           1       0.78      0.78      0.78       646
+
+    accuracy                           0.82      1523
+   macro avg       0.81      0.81      0.81      1523
+weighted avg       0.82      0.82      0.82      1523
+
+array([[738, 139],
+       [140, 506]])
+       
+       Top 20 losses
+----------
+id:535 | loss:9.61 | true:0 | pred:1)
+
+[CLS] over half of poll respondents worry nuclear disaster fading from public consciousness http fu ##kushima [SEP]
+predictor.explain("over half of poll respondents worry nuclear disaster fading from public consciousness http fu ##kushima")
+----------
+id:1040 | loss:9.32 | true:0 | pred:1)
+
+[CLS] teen disaster prepared ##ness event in van nu ##ys august pm http via van ##nu ##ys ##co ##un ##ci ##l [SEP]
+----------
+id:87 | loss:9.11 | true:0 | pred:1)
+
+[CLS] am boy crash http [SEP]
+----------
+id:1097 | loss:8.94 | true:0 | pred:1)
+
+[CLS] today was trauma on top of trauma on top of trauma in richmond so i know work is going to be crazy the next two days [SEP]
+----------
+id:756 | loss:8.93 | true:0 | pred:1)
+
+[CLS] people with netflix there is a really good documentary about hiroshima narrated by john hurt part ##er that interviews pilots survivors [SEP]
+----------
+id:768 | loss:8.77 | true:1 | pred:0)
+
+[CLS] oh my god ryan ##s in trouble http [SEP]
+----------
+id:1056 | loss:8.62 | true:1 | pred:0)
+
+[CLS] do you feel like you are sinking in low self ##ima ##ge take the quiz http http [SEP]
+----------
+id:1452 | loss:8.59 | true:1 | pred:0)
+
+[CLS] could billboard ##s hot chart be displaced by these social ##media ##drive ##n music charts http [SEP]
+----------
+id:513 | loss:8.58 | true:1 | pred:0)
+
+[CLS] why are you del ##uge ##d with low self ##ima ##ge take the quiz http http [SEP]
+----------
+id:906 | loss:8.52 | true:1 | pred:0)
+
+[CLS] sc ##ot ##rail i be seen them turn a blind eye to a b ##lok ##e drinking and smoking on during the cu ##rf ##ew time co ##sit ##s not worth the has ##sle [SEP]
+----------
+id:543 | loss:8.51 | true:1 | pred:0)
+
+[CLS] literally trapped in my room cu ##z my bathroom being remodeled the only exit is through a window [SEP]
+----------
+id:1141 | loss:8.5 | true:1 | pred:0)
+
+[CLS] un ##real ##tou ##ch fuck sake john jesus my heart just sunk [SEP]
+----------
+id:435 | loss:8.5 | true:1 | pred:0)
+
+[CLS] rand paul ##s debate strategy demo ##lish some other bad ideas out there or point out maybe that there are some em http [SEP]
+----------
+id:1443 | loss:8.48 | true:1 | pred:0)
+
+[CLS] my ipod crashed we ##lov ##ey ##ou ##lou ##is mtv ##hot ##test one direction [SEP]
+----------
+id:1272 | loss:8.47 | true:1 | pred:0)
+
+[CLS] hell ##fire we don ##u ##ª ##t even want to think about it or mention it so let ##u ##ª ##s not do anything that leads to it islam [SEP]
+----------
+id:1041 | loss:8.45 | true:1 | pred:0)
+
+[CLS] someone teaching you that obedience will ob ##lite ##rate trials in your life is trying to sell you a used car jesus ##s life blows that theory [SEP]
+----------
+id:1009 | loss:8.43 | true:1 | pred:0)
+
+[CLS] dream ##of ##org ##ono ##n tee ##ess not to hi ##jack but as a bon ##a fide cis ##lad ##y i can confirm this as true incident ##al homosexuality gay ##bi for women [SEP]
+----------
+id:1349 | loss:8.41 | true:1 | pred:0)
+
+[CLS] the date for the release of ep des ##ola ##tion is set stay tuned for more info while we final ##ise the schedule alt electro rock coming ##so ##on [SEP]
+----------
+id:239 | loss:8.4 | true:0 | pred:1)
+
+[CLS] our garbage truck really caught on fire l ##m ##fa ##o [SEP]
+----------
+id:421 | loss:8.39 | true:1 | pred:0)
+
+[CLS] we will be burning up like neon lights [SEP]
+

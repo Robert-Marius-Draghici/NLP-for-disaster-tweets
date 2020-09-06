@@ -1,0 +1,28 @@
+(x_train, y_train), (x_val, y_val), preproc = text.texts_from_df(train, 
+                                                                   'text', # name of column containing review text
+                                                                   label_columns=['target'],
+                                                                   maxlen=32, 
+                                                                   max_features=100,
+                                                                   preprocess_mode='standard',
+                                                                   val_pct=0.2,
+                                                                   ngram_range=1)
+
+model = text.text_classifier('nbsvm', (x_train, y_train) , preproc=preproc)
+learner = ktrain.get_learner(model, 
+                             train_data=(x_train, y_train), 
+                             val_data=(x_val, y_val), 
+                             batch_size=64)
+
+ learner.autofit(lr = 0.0001)
+ 
+              precision    recall  f1-score   support
+
+           0       0.74      0.72      0.73       885
+           1       0.62      0.65      0.64       638
+
+    accuracy                           0.69      1523
+   macro avg       0.68      0.68      0.68      1523
+weighted avg       0.69      0.69      0.69      1523
+
+array([[635, 250],
+       [223, 415]])

@@ -1,0 +1,52 @@
+cleaning: remove url and expand
+
+MODEL_NAME = 'DeepPavlov/bert-base-cased-conversational'
+t = text.Transformer(MODEL_NAME, maxlen=54, class_names=list(Y_train.unique()))
+trn = t.preprocess_train(X_train.tolist(), Y_train.values)
+val = t.preprocess_test(X_val.tolist(), Y_val.values)
+model = t.get_classifier()
+learner = ktrain.get_learner(model, train_data=trn, val_data=val, batch_size=64)
+
+
+
+begin training using onecycle policy with max lr of 2e-05...
+Train for 96 steps, validate for 48 steps
+Epoch 1/5
+96/96 [==============================] - 130s 1s/step - loss: 0.6497 - accuracy: 0.6276 - val_loss: 0.5413 - val_accuracy: 0.7492
+Epoch 2/5
+96/96 [==============================] - 125s 1s/step - loss: 0.4555 - accuracy: 0.8020 - val_loss: 0.3919 - val_accuracy: 0.8240
+Epoch 3/5
+96/96 [==============================] - 126s 1s/step - loss: 0.3397 - accuracy: 0.8677 - val_loss: 0.4018 - val_accuracy: 0.8267
+Epoch 4/5
+96/96 [==============================] - 126s 1s/step - loss: 0.2306 - accuracy: 0.9161 - val_loss: 0.4605 - val_accuracy: 0.8221
+Epoch 5/5
+96/96 [==============================] - 126s 1s/step - loss: 0.1566 - accuracy: 0.9461 - val_loss: 0.5149 - val_accuracy: 0.8201
+
+<tensorflow.python.keras.callbacks.History at 0x7f994786d518>
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.87      0.84       861
+           1       0.81      0.76      0.79       662
+
+    accuracy                           0.82      1523
+   macro avg       0.82      0.81      0.82      1523
+weighted avg       0.82      0.82      0.82      1523
+
+array([[745, 116],
+       [158, 504]])
+       
+       ---------
+id:1128 | loss:5.28 | true:0 | pred:1)
+
+----------
+id:1439 | loss:5.25 | true:0 | pred:1)
+
+----------
+id:938 | loss:5.17 | true:0 | pred:1)
+
+----------
+id:1182 | loss:5.15 | true:0 | pred:1)
+
+----------
+id:244 | loss:5.06 | true:0 | pred:1)

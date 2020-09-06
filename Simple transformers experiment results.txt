@@ -1,0 +1,9 @@
+1. Clean data, google/electra-base-discriminator, 0.7878
+2. Unclean data, DeepPavlov/bert-base-cased-conversational, 0.80163
+3. Clean data, DeepPavlov/bert-base-cased-conversational, 0.80572
+4. Unclean data, distilroberta-base, 0.81901
+5. Clean data, distilroberta-base, 0.80777
+6. Unclean data, roberta-base, 0.81901
+7. Clean data, roberta-base, 0.80981
+8. Unclean data, electra-small-discriminator, 0.76073
+9. Unclean data, electra-small-generator, 0.78016

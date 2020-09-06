@@ -1,0 +1,51 @@
+MODEL_NAME = 'DeepPavlov/bert-base-cased-conversational'
+t = text.Transformer(MODEL_NAME, maxlen=60, class_names=list(Y_train.unique()))
+trn = t.preprocess_train(X_train.tolist(), Y_train.values)
+val = t.preprocess_test(X_val.tolist(), Y_val.values)
+model = t.get_classifier()
+learner = ktrain.get_learner(model, train_data=trn, val_data=val, batch_size=32)
+
+simulating training for different learning rates... this may take a few moments...
+Train for 190 steps
+Epoch 1/1024
+190/190 [==============================] - 58s 306ms/step - loss: 0.7324 - accuracy: 0.5276
+Epoch 2/1024
+190/190 [==============================] - 46s 242ms/step - loss: 0.6520 - accuracy: 0.6217
+Epoch 3/1024
+190/190 [==============================] - 46s 242ms/step - loss: 0.4410 - accuracy: 0.8105
+Epoch 4/1024
+190/190 [==============================] - 46s 242ms/step - loss: 0.4081 - accuracy: 0.8348
+Epoch 5/1024
+190/190 [==============================] - 46s 242ms/step - loss: 0.6896 - accuracy: 0.5517
+Epoch 6/1024
+190/190 [==============================] - 46s 242ms/step - loss: 0.8057 - accuracy: 0.5134
+Epoch 7/1024
+ 90/190 [=============>................] - ETA: 24s - loss: 1.3466 - accuracy: 0.5224
+
+
+
+
+begin training using onecycle policy with max lr of 5e-05...
+Train for 191 steps, validate for 48 steps
+Epoch 1/10
+191/191 [==============================] - 54s 282ms/step - loss: 0.5554 - accuracy: 0.7159 - val_loss: 0.4339 - val_accuracy: 0.8102
+Epoch 2/10
+191/191 [==============================] - 50s 263ms/step - loss: 0.3814 - accuracy: 0.8478 - val_loss: 0.4398 - val_accuracy: 0.8109
+Epoch 3/10
+191/191 [==============================] - 50s 263ms/step - loss: 0.2854 - accuracy: 0.8911 - val_loss: 0.5012 - val_accuracy: 0.8188
+Epoch 4/10
+191/191 [==============================] - 50s 264ms/step - loss: 0.1903 - accuracy: 0.9312 - val_loss: 0.5482 - val_accuracy: 0.7912
+Epoch 5/10
+191/191 [==============================] - 50s 264ms/step - loss: 0.1549 - accuracy: 0.9396 - val_loss: 0.6188 - val_accuracy: 0.8188
+Epoch 6/10
+191/191 [==============================] - 50s 264ms/step - loss: 0.1144 - accuracy: 0.9570 - val_loss: 0.7408 - val_accuracy: 0.8017
+Epoch 7/10
+191/191 [==============================] - 50s 264ms/step - loss: 0.0715 - accuracy: 0.9708 - val_loss: 0.7909 - val_accuracy: 0.8142
+Epoch 8/10
+191/191 [==============================] - 50s 263ms/step - loss: 0.0455 - accuracy: 0.9775 - val_loss: 0.8907 - val_accuracy: 0.8188
+Epoch 9/10
+191/191 [==============================] - 50s 263ms/step - loss: 0.0344 - accuracy: 0.9823 - val_loss: 0.9472 - val_accuracy: 0.8030
+Epoch 10/10
+191/191 [==============================] - 50s 264ms/step - loss: 0.0297 - accuracy: 0.9849 - val_loss: 0.9992 - val_accuracy: 0.8148
+
+<tensorflow.python.keras.callbacks.History at 0x7fdf52247b70>

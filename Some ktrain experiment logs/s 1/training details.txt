@@ -1,0 +1,174 @@
+(x_train, y_train), (x_val, y_val), preproc = text.texts_from_df(train, 
+                                                                   'text', # name of column containing review text
+                                                                   label_columns=['target'],
+                                                                   maxlen=60, 
+                                                                   max_features=100000,
+                                                                   preprocess_mode='bert',
+                                                                   val_pct=0.2,
+                                                                   ngram_range=4)
+                                                                   
+
+model = text.text_classifier('bert', (x_train, y_train) , preproc=preproc)
+learner = ktrain.get_learner(model, 
+                             train_data=(x_train, y_train), 
+                             val_data=(x_val, y_val), 
+                             batch_size=64)
+                             
+
+simulating training for different learning rates... this may take a few moments...
+Train on 6090 samples
+Epoch 1/1024
+6090/6090 [==============================] - 80s 13ms/sample - loss: 0.8148 - accuracy: 0.4987
+Epoch 2/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.6971 - accuracy: 0.5678
+Epoch 3/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.5815 - accuracy: 0.7062
+Epoch 4/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.4752 - accuracy: 0.7803
+Epoch 5/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.4023 - accuracy: 0.8268
+Epoch 6/1024
+6090/6090 [==============================] - 64s 10ms/sample - loss: 0.3497 - accuracy: 0.8567
+Epoch 7/1024
+6090/6090 [==============================] - 64s 11ms/sample - loss: 0.2955 - accuracy: 0.8872
+Epoch 8/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.2953 - accuracy: 0.8864
+Epoch 9/1024
+6090/6090 [==============================] - 62s 10ms/sample - loss: 0.3113 - accuracy: 0.8841
+Epoch 10/1024
+6090/6090 [==============================] - 62s 10ms/sample - loss: 0.6095 - accuracy: 0.6880
+Epoch 11/1024
+6090/6090 [==============================] - 62s 10ms/sample - loss: 0.9057 - accuracy: 0.5158
+Epoch 12/1024
+6090/6090 [==============================] - 63s 10ms/sample - loss: 0.9192 - accuracy: 0.5342
+Epoch 13/1024
+2048/6090 [=========>....................] - ETA: 41s - loss: 1.1702 - accuracy: 0.5098
+
+
+begin training using onecycle policy with max lr of 5e-05...
+Train on 6090 samples, validate on 1523 samples
+Epoch 1/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0507 - accuracy: 0.9808 - val_loss: 0.7945 - val_accuracy: 0.8148
+Epoch 2/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0475 - accuracy: 0.9805 - val_loss: 0.8470 - val_accuracy: 0.8188
+Epoch 3/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0471 - accuracy: 0.9808 - val_loss: 0.9425 - val_accuracy: 0.8260
+Epoch 4/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0500 - accuracy: 0.9798 - val_loss: 0.8213 - val_accuracy: 0.8155
+Epoch 5/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0602 - accuracy: 0.9765 - val_loss: 0.8594 - val_accuracy: 0.8063
+Epoch 6/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0683 - accuracy: 0.9727 - val_loss: 0.8612 - val_accuracy: 0.7833
+Epoch 7/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0930 - accuracy: 0.9652 - val_loss: 0.7564 - val_accuracy: 0.8162
+Epoch 8/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0568 - accuracy: 0.9777 - val_loss: 0.8965 - val_accuracy: 0.7892
+Epoch 9/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0567 - accuracy: 0.9782 - val_loss: 0.8816 - val_accuracy: 0.8024
+Epoch 10/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0401 - accuracy: 0.9834 - val_loss: 0.9313 - val_accuracy: 0.7938
+Epoch 11/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0293 - accuracy: 0.9874 - val_loss: 1.0174 - val_accuracy: 0.8148
+Epoch 12/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0207 - accuracy: 0.9903 - val_loss: 1.0677 - val_accuracy: 0.8122
+Epoch 13/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0131 - accuracy: 0.9931 - val_loss: 1.1444 - val_accuracy: 0.8083
+Epoch 14/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0116 - accuracy: 0.9931 - val_loss: 1.1685 - val_accuracy: 0.8142
+Epoch 15/15
+6090/6090 [==============================] - 66s 11ms/sample - loss: 0.0141 - accuracy: 0.9934 - val_loss: 1.1688 - val_accuracy: 0.8089
+<tensorflow.python.keras.callbacks.History at 0x7fe3260cb550>
+
+
+              precision    recall  f1-score   support
+
+           0       0.82      0.85      0.83       861
+           1       0.79      0.76      0.77       662
+
+    accuracy                           0.81      1523
+   macro avg       0.81      0.80      0.80      1523
+weighted avg       0.81      0.81      0.81      1523
+
+array([[732, 129],
+       [162, 500]])
+       
+   Top 20 misclassified
+id:664 | loss:10.31 | true:1 | pred:0)
+
+[CLS] @ alcohol ##and ##met ##al + do anything to fix that . of the few people he had every trusted in his life charles was one of the casualties . [SEP]
+----------
+id:99 | loss:10.0 | true:1 | pred:0)
+
+[CLS] i feel like if mk ##ay ##la and ce ##e ever got in the same room everyone should evacuate because it would be so petty and childish i couldn ' t deal [SEP]
+----------
+id:1303 | loss:9.96 | true:1 | pred:0)
+
+[CLS] @ kira ##fr ##og @ mount _ war ##io did you get wrecked again ? [SEP]
+----------
+id:876 | loss:9.9 | true:1 | pred:0)
+
+[CLS] @ blake ##sh ##elt ##on don ' t be a far ##t ? ? in a winds ##torm . follow me already . je ##ez . [SEP]
+----------
+id:1100 | loss:9.88 | true:1 | pred:0)
+
+[CLS] fall off a cliff please https : / / t . co / 4 ##v ##ws ##l ##2 ##gf ##p ##0 [SEP]
+----------
+id:1201 | loss:9.83 | true:1 | pred:0)
+
+[CLS] so grateful for all the support flooding in from @ net ##kic ##or ##p dinner guests ! thank you all ! https : / / t . co / el ##t ##ne ##5 ##v ##1 ##q ##n [SEP]
+----------
+id:606 | loss:9.82 | true:1 | pred:0)
+
+[CLS] mr ##w when a sink ##hole opens up beneath my friends and i . . . # gi ##f # funny # lo ##l # comedy # if ##un ##ny # video # image # rt http : / / t . co / xi ##yd ##y ##fp ##tr ##u [SEP]
+----------
+id:447 | loss:9.81 | true:1 | pred:0)
+
+[CLS] las vegas in top 5 cities for red - light running fatalities http : / / t . co / kc ##8 ##o ##8 ##1 ##bc ##hg [SEP]
+----------
+id:431 | loss:9.81 | true:1 | pred:0)
+
+[CLS] @ stretch ##er @ wit ##ter @ rex ##y ##y @ towel show me a picture of it [SEP]
+----------
+id:763 | loss:9.75 | true:1 | pred:0)
+
+[CLS] ain ' t no ho ##e in my blood [SEP]
+----------
+id:201 | loss:9.73 | true:1 | pred:0)
+
+[CLS] jr ##owa ##h : breaking news ! un ##con ##firmed ! i just heard a loud bang nearby . in what appears to be a blast of wind from my neighbour ' s ass . [SEP]
+----------
+id:502 | loss:9.73 | true:1 | pred:0)
+
+[CLS] @ brittany ##pet ##ko breaking news tonight kids were rescued from play room after a week with no food or water do to parents sex life ha ##ha [SEP]
+----------
+id:636 | loss:9.73 | true:1 | pred:0)
+
+[CLS] petition | heart ##less owner that whipped horse until it collapsed is told he can keep his animal ! act now ! http : / / t . co / 87 ##ef ##cb ##icz ##m [SEP]
+----------
+id:772 | loss:9.72 | true:1 | pred:0)
+
+[CLS] davies ##mut ##ia : breaking news ! un ##con ##firmed ! i just heard a loud bang nearby . in what appears to be a blast of wind from my neighbour ' s ass . [SEP]
+----------
+id:874 | loss:9.71 | true:1 | pred:0)
+
+[CLS] # hip ##hop # news # indie apollo brown u ##o ui ##de ##ton ##ate ##u ft . m . o . p . - & lt ; a hr ##ef = ' http : / / t . co / w ##now ##f ##vc ##bm ##s . . . http : / / t . co / [SEP]
+----------
+id:1466 | loss:9.69 | true:1 | pred:0)
+
+[CLS] two hours to get to a client meeting . w ##hir ##l ##wind of emotions with this # tubes ##tri ##ke [SEP]
+----------
+id:823 | loss:9.68 | true:1 | pred:0)
+
+[CLS] rt patrick ##j ##bu ##tler : excellent damien ##ga ##yle eye ##wi ##tness account of kids company closure : ' you drop the bomb and expect ##u _ http : / / t . co / ph ##h ##1 ##v ##ml ##fo ##o [SEP]
+----------
+id:807 | loss:9.67 | true:1 | pred:0)
+
+[CLS] ' i did another one i did another one . you still ain ' t done shit about the other one . ' ni ##gga body bag ##ging meek . [SEP]
+----------
+id:1007 | loss:9.66 | true:1 | pred:0)
+
+[CLS] fatal ##ity https : / / t . co / g ##f ##5 ##q ##j ##go ##y ##ci [SEP]
+----------
+id:192 | loss:9.64 | true:1 | pred:0)
+
+[CLS] could billboard ' s hot 100 chart be displaced by these social - media - driven music charts ? http : / / t . co / w ##v ##lah ##8 ##j ##r ##x ##e [SEP]
