@@ -4,6 +4,7 @@ RUN pip3 install tensorflow_gpu==2.1.0
 RUN pip3 install ktrain
 RUN pip3 install bs4
 RUN pip3 install spacy
+RUN pip3 install simpletransformers
 RUN apt-get update
 RUN apt-get install git -y
 RUN pip3 install -q git+https://github.com/amaiya/eli5@tfkeras_0_10_1
